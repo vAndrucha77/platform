@@ -38,11 +38,11 @@ class profile::platform::windows::baseline {
   }
 
   acl { 'c:/permissions':
-    inherit_parent_permissions  =>  false,
-    permissions                 =>  [
-    {identity   =>  'Administrators', rights    =>  ['full']},
-    {identity   =>  'Users', rights =>  ['read','execute']},
-    {identity   =>  'PuppetGroup', rights   =>  ['full']}
+    inherit_parent_permissions => false,
+    permissions                => [
+    {identity => 'Administrators', rights => ['full']},
+    {identity => 'Users', rights => ['read','execute']},
+    {identity => 'PuppetGroup', rights => ['full']}
     ],
   }
   # CUSTOM USERS
@@ -70,14 +70,20 @@ class profile::platform::windows::baseline {
     data         => '0xFFFFFFFF',
   }
 
-  registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText':
-    type        => string,
-    data        => 'This Legal Notice Text is Managed By Puppet',
+  #registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText':
+  #  type        => string,
+  #  data        => 'This Legal Notice Text is Managed By Puppet',
+  #}
+
+  #registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption':
+  #  type        => string,
+  #  data        => 'This Legal Notice Caption is Managed By Puppet',
+  #}
+
+  exec { 'motd':
+    command => 'C:\Windows\System32\cmd.exe /c reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v LegalNoticeCaption /t REG_SZ /d "This Legal Notice Caption is Managed By Puppet" /f && reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v LegalNoticeText /t REG_SZ /d "This Legal Notice Caption is Managed By Puppet" /f',
   }
 
-  registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption':
-    type        => string,
-    data        => 'This Legal Notice Caption is Managed By Puppet',
-  }
 include bginfo
+
 }
