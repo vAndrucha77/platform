@@ -11,15 +11,15 @@ class profile::platform::windows::baseline {
   # package { 'git': }
   # CUSTOM APPLICATION FIREWALL RULE
   dsc_xFirewall { 'Inbound-TSE-Demo':
-    dsc_ensure  => 'present',
-    dsc_name    => 'inboundTSEDemo',
-    dsc_displayname => 'InboundTSEDemo',
+    dsc_ensure       => 'present',
+    dsc_name         => 'inboundTSEDemo',
+    dsc_displayname  => 'InboundTSEDemo',
     dsc_displaygroup => 'A Puppet + DSC Test',
-    dsc_action => 'Allow',
-    dsc_enabled => 'true',
-    dsc_protocol => 'TCP',
-    dsc_localport => '8081',
-    dsc_direction => 'Inbound',
+    dsc_action       => 'Allow',
+    dsc_enabled      => true,
+    dsc_protocol     => 'TCP',
+    dsc_localport    => '8081',
+    dsc_direction    => 'Inbound',
   }
 
   windows_firewall::exception { 'TSErule':
@@ -66,8 +66,8 @@ class profile::platform::windows::baseline {
     data => 'this is a value new from puppet intro',
   }
   registry_value { 'HKEY_LOCAL_MACHINE\Software\Demonstration\value2':
-    type         => dword,
-    data         => '0xFFFFFFFF',
+    type => dword,
+    data => '0xFFFFFFFF',
   }
 
   #registry_value { 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText':
