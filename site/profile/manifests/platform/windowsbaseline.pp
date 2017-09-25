@@ -1,4 +1,4 @@
-class profile::platform::windows {
+class profile::platform::windowsbaseline {
   include profile::platform::windows::packages
   include profile::platform::windows::registry
   include profile::platform::windows::firewall_rules

@@ -1,4 +1,4 @@
-class profile::platform::linux {
+class profile::platform::linuxbaseline {
   case $operatingsystemrelease {
     /^7.*/: {
     include profile::platform::linux::alambrecht
